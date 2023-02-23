@@ -28,13 +28,11 @@ local function add_ores()
 end
 
 math.randomseed(100)
-minetest.after(1, add_ores)
 local function get_ore()
 	local rand = math.ceil(math.random()*get_len())
 	if rand_cool.ore[rand] == nil then return get_ore() end
 	return rand_cool.ore[rand]
 end
-
 
 default.cool_lava = function(pos, node)
 	if node.name == "default:lava_source" then
@@ -45,3 +43,6 @@ default.cool_lava = function(pos, node)
 	minetest.sound_play("default_cool_lava",
 		{pos = pos, max_hear_distance = 16, gain = 0.2}, true)
 end
+minetest.register_on_mods_loaded(function()
+	add_ores()
+end)
